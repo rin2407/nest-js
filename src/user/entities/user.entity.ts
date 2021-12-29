@@ -10,6 +10,6 @@ export class UserEntity {
   @Column({name: 'last_name'})
   lastName: string;
 
-  @Column({name: 'email'})
+  @Column({name: 'email',unique: true})
   email: string;
 }
