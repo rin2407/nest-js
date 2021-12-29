@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './middleware/logger.middleware';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [UserModule,
@@ -16,7 +17,8 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
       database: 'user',
       entities: [ __dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-    }),],
+    }),
+    PostModule,],
   controllers: [AppController],
   providers: [AppService],
 })
