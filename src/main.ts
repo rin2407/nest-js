@@ -8,6 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe(),
   ); 
+  // http exception filte
   app.useGlobalFilters(new HttpExceptionFilter()); 
   await app.listen(3000);
 }
