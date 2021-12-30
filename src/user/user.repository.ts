@@ -1,3 +1,4 @@
+import { BadRequestException, HttpException, HttpStatus } from "@nestjs/common";
 import { EntityRepository, Repository } from "typeorm";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -22,13 +23,16 @@ export class UserRepository extends Repository<UserEntity>{
       return user
   }
   async updateUser(updateDto: UpdateUserDto){
-      let user = await this.findOne(updateDto?.id)
+     try {
+      let user = await this.findOneOrFail(updateDto?.id)
       if(user){
         user.firstName = updateDto?.firstName
         user.lastName = updateDto?.lastName
         const saveUser = await this.save(user)
         return saveUser
       }
-      return 'error'
+     } catch (error) {
+      throw new HttpException(error, HttpStatus.NOT_FOUND)
+    }
   }
 }
