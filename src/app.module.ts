@@ -5,6 +5,8 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { PostModule } from './post/post.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './guard/role/roles.guard';
 
 @Module({
   imports: [UserModule,
@@ -20,7 +22,11 @@ import { PostModule } from './post/post.module';
     }),
     PostModule,],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

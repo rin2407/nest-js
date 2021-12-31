@@ -11,8 +11,8 @@ export class PostService {
   }
 
   findAll() {
-    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-    // return this.postRepository.find();
+    // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    return this.postRepository.find();
   }
 
   findOne(id: number) {
