@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
 import { AuthGuard } from 'src/guard/auth/auth.guard';
+import { Roles } from 'src/decorator/role.decorator';
 
 @Controller('user')
 @UseGuards(AuthGuard)

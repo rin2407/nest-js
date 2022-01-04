@@ -7,6 +7,7 @@ import { LoggerMiddleware } from './middleware/logger.middleware';
 import { PostModule } from './post/post.module';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guard/role/roles.guard';
+import { LoginModule } from './login/login.module';
 
 @Module({
   imports: [UserModule,
@@ -20,13 +21,16 @@ import { RolesGuard } from './guard/role/roles.guard';
       entities: [ __dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    PostModule,],
+    PostModule,
+    LoginModule,],
   controllers: [AppController],
   providers: [AppService,
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
-    },],
+    },
+  ]
+    ,
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

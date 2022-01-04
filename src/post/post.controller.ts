@@ -1,17 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, SetMetadata } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, SetMetadata, UseGuards } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Roles } from 'src/decorator/role.decorator';
+import { RolesGuard } from 'src/guard/role/roles.guard';
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
-
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
     return this.postService.create(createPostDto);
   }
-
   @Get()
   @Roles('admin')
   findAll() {
